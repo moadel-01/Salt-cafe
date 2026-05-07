@@ -6,9 +6,10 @@ const { error } = require("node:console");
 const userRouter = require("./Routes/users.Routes");
 const { prodRouter } = require("./Routes/products.Routes");
 const orderRouter = require("./Routes/orders.Routes");
+const cors = require("cors")
 
 const app = express();
-app.use(cors({ origin: "*" }));
+app.use(cors({origin: "*"}))
 app.use(express.json());
 
 app.use("/users", userRouter);
