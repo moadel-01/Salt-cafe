@@ -8,6 +8,7 @@ const { prodRouter } = require("./Routes/products.Routes");
 const orderRouter = require("./Routes/orders.Routes");
 
 const app = express();
+app.use(cors({ origin: "*" }));
 app.use(express.json());
 
 app.use("/users", userRouter);
@@ -15,8 +16,6 @@ app.use("/users", userRouter);
 app.use("/products", prodRouter);
 
 app.use("/orders", orderRouter);
-
-
 
 mongoose
   .connect(process.env.CONN_STRING)
