@@ -83,10 +83,27 @@ async function updateProduct(req, res) {
   }
 }
 
+async function getProductsUsingCategory(req, res) {
+  try {
+    const { category } = req.params;
+
+    const products = await Product.find({ category: category });
+    const total = await Product.find({ category: category }).countDocuments();
+
+    res
+      .status(200)
+      .json({ message: `all ${category} products`, data: { products, total } });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+}
+
 module.exports = {
   createProduct,
   getAllProducts,
   getSingleProduct,
   deleteProduct,
-  updateProduct
+  updateProduct,
+  getProductsUsingCategory,
 };
