@@ -3,6 +3,20 @@ const mongoose = require("mongoose");
 const orderSchema = mongoose.Schema(
   {
     customer_name: { type: String, minlength: 3, default: "Customer" },
+    order_type: {
+      type: String,
+      enum: ["Dine-in", "Takeaway", "Delivery"],
+      required: true,
+    },
+
+    delivery_address: {
+      street: { type: String },
+      building_number: { type: String },
+    },
+
+    table_number: {
+      type: Number,
+    },
 
     order_status: {
       type: String,
