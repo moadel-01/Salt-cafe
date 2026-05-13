@@ -1,5 +1,7 @@
 const { get } = require("mongoose");
 const { Order } = require("../Models/order");
+const { date } = require("joi");
+const { updateOrderValidations } = require("../Validations/ordersValidations");
 
 async function createOrder(req, res) {
   try {
@@ -89,4 +91,56 @@ async function getAllUserOrders(req, res) {}
 
 async function search(req, res) {}
 
-module.exports = { createOrder, getOrders, getSingleOrder };
+async function updateOrderStatus(req, res) {
+  try {
+    const { id } = req.params;
+
+    const { error, value } = updateOrderValidations.validate(req.body);
+
+    if (error) {
+      return res.status(400).json({ error: error.details[0].message });
+    }
+
+    const order = await Order.findByIdAndUpdate(id, value);
+
+    if (!order) {
+      return res.status(404).json({ message: "order not found" });
+    }
+
+    res.status(200).json({ message: `order Updated` });
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error", error });
+  }
+}
+
+async function getTodayOrders(req, res) {
+  try {
+    const today = new Date();
+
+    today.setHours(0, 0, 0, 0);
+
+    const tomorrow = new Date(today);
+
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    const orders = await Order.find({
+      createdAt: { $gte: today, $lt: tomorrow },
+    });
+
+    const total = await orders.length;
+
+    res
+      .status(200)
+      .json({ message: "all orders made today", data: { total, orders } });
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+}
+
+module.exports = {
+  createOrder,
+  getOrders,
+  getSingleOrder,
+  getTodayOrders,
+  updateOrderStatus,
+};

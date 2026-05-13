@@ -11,6 +11,9 @@ orderRouter.post(
 );
 
 orderRouter.get("/", orderController.getOrders);
+orderRouter.get("/todayOrders", orderController.getTodayOrders);
 orderRouter.get("/:id", orderController.getSingleOrder);
+
+orderRouter.patch("/:id", orderController.updateOrderStatus);
 
 module.exports = orderRouter;
