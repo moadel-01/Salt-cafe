@@ -9,13 +9,17 @@ const orderSchema = mongoose.Schema(
       required: true,
     },
 
-    delivery_address: {
-      street: { type: String },
-      building_number: { type: String },
+    delivery: {
+      address: {
+        street: { type: String },
+        building_number: { type: String },
+      },
+      delivery_fees: { type: Number },
     },
 
-    table_number: {
-      type: Number,
+    table: {
+      table_number: { type: Number },
+      service_fees: { type: Number },
     },
 
     order_status: {
