@@ -3,6 +3,8 @@ const mongoose = require("mongoose");
 const orderSchema = mongoose.Schema(
   {
     customer_name: { type: String, minlength: 3, default: "Customer" },
+    customer_number: { type: String, minlength: 11, default: "No No. Found" },
+
     order_type: {
       type: String,
       enum: ["Dine-in", "Takeaway", "Delivery"],

@@ -1,6 +1,5 @@
 const { get } = require("mongoose");
 const { Order } = require("../Models/order");
-const { date } = require("joi");
 const { updateOrderValidations } = require("../Validations/ordersValidations");
 
 async function createOrder(req, res) {
@@ -14,16 +13,23 @@ async function createOrder(req, res) {
     const {
       orderProducts,
       customer_name,
+      customer_number,
       order_status,
       total_price,
       order_type,
-      delivery_address,
-      table_number,
+
+      delivery: {
+        address: { street, building_number } = {},
+        delivery_fees,
+      } = {},
+
+      table: { table_number, service_fees } = {},
     } = req.body;
 
     const order = await Order.create({
       cashier: cashier,
       customer_name: customer_name,
+      customer_number: customer_number,
       order_status: order_status,
 
       products: orderProducts.map((item) => ({
@@ -37,9 +43,9 @@ async function createOrder(req, res) {
 
       order_type: order_type,
 
-      delivery_address: delivery_address,
+      delivery: delivery,
 
-      table_number: table_number,
+      table: table,
     });
 
     res.status(200).json({ message: "order created" });
