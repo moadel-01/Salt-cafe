@@ -13,7 +13,6 @@ async function createOrder(req, res) {
     const {
       orderProducts,
       customer_name,
-      customer_number,
       order_status,
       total_price,
       order_type,
@@ -21,16 +20,17 @@ async function createOrder(req, res) {
       delivery: {
         address: { street, building_number } = {},
         delivery_fees,
+        customer_number,
       } = {},
 
       table: { table_number, service_fees } = {},
     } = req.body;
 
     const order = await Order.create({
-      cashier: cashier,
-      customer_name: customer_name,
-      customer_number: customer_number,
-      order_status: order_status,
+      cashier,
+      customer_name,
+      customer_number,
+      order_status,
 
       products: orderProducts.map((item) => ({
         product_id: item.product_id,
@@ -39,13 +39,23 @@ async function createOrder(req, res) {
         quantity: item.quantity,
       })),
 
-      total_price: total_price,
+      total_price,
 
-      order_type: order_type,
+      order_type,
 
-      delivery: delivery,
+      delivery: {
+        address: {
+          street,
+          building_number,
+        },
+        delivery_fees,
+        customer_number,
+      },
 
-      table: table,
+      table: {
+        table_number,
+        service_fees,
+      },
     });
 
     res.status(200).json({ message: "order created" });

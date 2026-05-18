@@ -48,8 +48,8 @@ const orderSchema = mongoose.Schema(
           required: true,
         },
         name: { type: String },
-        price: { type: String },
-        quantity: { type: String },
+        price: { type: Number },
+        quantity: { type: Number },
       },
     ],
 
