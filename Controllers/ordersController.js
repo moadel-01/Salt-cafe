@@ -67,7 +67,12 @@ async function createOrder(req, res) {
 
 getOrders = async (req, res) => {
   try {
-    const { sorting = -1, order_type, order_status } = req.query;
+    const {
+      sortBy = "createdAt",
+      sorting = -1,
+      order_type,
+      order_status,
+    } = req.query;
 
     const query = {};
 
@@ -79,7 +84,7 @@ getOrders = async (req, res) => {
       query.order_status = order_status;
     }
 
-    const orders = await Order.find(query).sort({ createdAt:sorting });
+    const orders = await Order.find(query).sort({ [sortBy]: Number(sorting) });
     const total = await orders.length;
     res.status(200).json({ message: "all orders", data: { total, orders } });
   } catch (error) {
