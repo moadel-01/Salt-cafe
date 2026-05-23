@@ -24,6 +24,8 @@ const orderSchema = mongoose.Schema(
       service_fees: { type: Number },
     },
 
+    total_items: { type: Number },
+
     order_status: {
       type: String,
       enum: ["Pending", "Preparing", "Ready", "Completed"],

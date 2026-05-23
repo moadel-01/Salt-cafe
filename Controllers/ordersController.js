@@ -43,6 +43,8 @@ async function createOrder(req, res) {
         quantity: item.quantity,
       })),
 
+      total_items: orderProducts.reduce((sum,item)=> sum + item.quantity,0),
+
       total_price,
 
       order_type,
