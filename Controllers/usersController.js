@@ -1,4 +1,4 @@
-const { User } = require("../tempModels/user");
+const { User } = require("../Models/user");
 const {
   userValidation,
   updateValidation,
