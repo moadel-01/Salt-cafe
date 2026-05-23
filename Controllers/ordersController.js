@@ -1,6 +1,7 @@
 const { get } = require("mongoose");
 const { Order } = require("../Models/order");
 const { updateOrderValidations } = require("../Validations/ordersValidations");
+const getNextSequenceValue = require("../utils/counterSequence")
 
 async function createOrder(req, res) {
   try {
@@ -9,6 +10,8 @@ async function createOrder(req, res) {
       name: req.user.username,
       role: req.user.role,
     };
+
+    const orderId = await getNextSequenceValue("orderId");
 
     const {
       orderProducts,
@@ -28,6 +31,7 @@ async function createOrder(req, res) {
 
     const order = await Order.create({
       cashier,
+      order_id: orderId,
       customer_name,
       customer_number,
       order_status,

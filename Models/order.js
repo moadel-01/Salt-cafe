@@ -30,6 +30,11 @@ const orderSchema = mongoose.Schema(
       default: "Pending",
     },
 
+    order_id: {
+      type: Number,
+      unique: true,
+    },
+
     cashier: {
       cashier_id: {
         type: mongoose.Schema.Types.ObjectId,
