@@ -33,6 +33,7 @@ const orderSchema = mongoose.Schema(
     order_id: {
       type: Number,
       unique: true,
+      index: true
     },
 
     cashier: {
