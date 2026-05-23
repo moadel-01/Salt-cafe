@@ -1,5 +1,5 @@
 const { get } = require("mongoose");
-const { Order } = require("../Models/order");
+const { Order } = require("../tempModels/order");
 const { updateOrderValidations } = require("../Validations/ordersValidations");
 const getNextSequenceValue = require("../utils/counterSequence")
 

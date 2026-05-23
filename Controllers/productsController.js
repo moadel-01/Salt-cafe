@@ -1,4 +1,4 @@
-const { Product } = require("../Models/product");
+const { Product } = require("../tempModels/product");
 const {
   productValidation,
   updateProductValidation,
