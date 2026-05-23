@@ -16,7 +16,7 @@ const orderSchema = mongoose.Schema(
         building_number: { type: String },
       },
       delivery_fees: { type: Number },
-      customer_number: { type: String, minlength: 11, default: "No No. Found" },
+      customer_number: { type: String, minlength: 11 },
     },
 
     table: {
