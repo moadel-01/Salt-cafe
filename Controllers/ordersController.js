@@ -79,7 +79,7 @@ getOrders = async (req, res) => {
       query.order_status = order_status;
     }
 
-    const orders = await Order.find(query).sort({ sorting });
+    const orders = await Order.find(query).sort({ createdAt:sorting });
     const total = await orders.length;
     res.status(200).json({ message: "all orders", data: { total, orders } });
   } catch (error) {
